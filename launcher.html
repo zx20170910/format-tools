@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>格式化工具箱</title>
+  <link rel="stylesheet" href="launcher.css">
+</head>
+<body>
+  <main class="launcher">
+    <header class="launcher-header">
+      <div>
+        <p class="eyebrow">DEV TOOLKIT</p>
+        <h1>格式化工具箱</h1>
+        <p>选择功能后，在新的浏览器页签中使用。</p>
+      </div>
+      <span class="status-dot" aria-label="本地运行"></span>
+    </header>
+
+    <section class="feature-list" aria-label="功能项">
+      <button class="feature-item" data-feature="repeat">
+        <span class="feature-icon">去</span>
+        <span class="feature-copy"><strong>字符串去重</strong><small>按行去除重复内容</small></span>
+        <span class="feature-arrow">›</span>
+      </button>
+      <button class="feature-item" data-feature="params">
+        <span class="feature-icon">参</span>
+        <span class="feature-copy"><strong>Params 格式化</strong><small>生成 SQL 参数列表</small></span>
+        <span class="feature-arrow">›</span>
+      </button>
+      <button class="feature-item" data-feature="json">
+        <span class="feature-icon">{ }</span>
+        <span class="feature-copy"><strong>JSON 格式化</strong><small>校验并美化 JSON 内容</small></span>
+        <span class="feature-arrow">›</span>
+      </button>
+      <button class="feature-item" data-feature="timestamp">
+        <span class="feature-icon">时</span>
+        <span class="feature-copy"><strong>时间戳转换</strong><small>时间戳与日期互转</small></span>
+        <span class="feature-arrow">›</span>
+      </button>
+      <button class="feature-item" data-feature="sql">
+        <span class="feature-icon">SQL</span>
+        <span class="feature-copy"><strong>SQL 条件注入</strong><small>替换问号占位参数</small></span>
+        <span class="feature-arrow">›</span>
+      </button>
+    </section>
+
+    <p class="launcher-tip">所有内容仅在本地处理，不会上传数据。</p>
+  </main>
+  <script src="launcher.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>格式化工具箱 - 工具页</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">DEV TOOLKIT</p>
+        <h1>格式化工具箱</h1>
+        <p class="subtitle">当前功能在浏览器页签中运行，数据仅在本地处理。</p>
+      </div>
+      <span class="status-dot" aria-label="本地运行"></span>
+    </header>
+
+    <nav class="tool-tabs" role="tablist" aria-label="工具列表">
+      <button class="tool-tab is-active" role="tab" aria-selected="true" aria-controls="repeat-panel" data-target="repeat-panel">字符串去重</button>
+      <button class="tool-tab" role="tab" aria-selected="false" aria-controls="params-panel" data-target="params-panel">Params 格式化</button>
+      <button class="tool-tab" role="tab" aria-selected="false" aria-controls="json-panel" data-target="json-panel">JSON 格式化</button>
+      <button class="tool-tab" role="tab" aria-selected="false" aria-controls="timestamp-panel" data-target="timestamp-panel">时间戳</button>
+      <button class="tool-tab" role="tab" aria-selected="false" aria-controls="sql-panel" data-target="sql-panel">SQL 条件注入</button>
+    </nav>
+
+    <section class="tool-panel is-active" id="repeat-panel" role="tabpanel">
+      <div class="panel-heading">
+        <div>
+          <h2>字符串去重</h2>
+          <p>按行去除重复内容，并保留首次出现的顺序。</p>
+        </div>
+      </div>
+      <div class="editor-grid">
+        <label class="field-card">
+          <span class="field-label">输入内容</span>
+          <textarea id="repeat-input" placeholder="每行输入一条内容&#10;xxxxxxxxxxxxxxxxxx&#10;yyyyyyyyyyyyyyyyyy&#10;xxxxxxxxxxxxxxxxxx"></textarea>
+        </label>
+        <label class="field-card">
+          <span class="field-label">去重结果</span>
+          <textarea id="repeat-output" readonly placeholder="结果会显示在这里"></textarea>
+        </label>
+      </div>
+      <div class="panel-actions">
+        <button class="button button-primary" id="repeat-action">去除重复</button>
+        <button class="button button-secondary" data-copy="repeat-output">复制结果</button>
+        <button class="button button-ghost" data-clear="repeat-input,repeat-output">清空</button>
+      </div>
+    </section>
+
+    <section class="tool-panel" id="params-panel" role="tabpanel" hidden>
+      <div class="panel-heading">
+        <div>
+          <h2>Params 格式化</h2>
+          <p>把按行输入的参数整理成可粘贴到 SQL 中的列表。</p>
+        </div>
+        <label class="select-field">参数类型
+          <select id="params-type">
+            <option value="string">字符串</option>
+            <option value="number">数字</option>
+          </select>
+        </label>
+      </div>
+      <div class="editor-grid">
+        <label class="field-card">
+          <span class="field-label">输入参数</span>
+          <textarea id="params-input" placeholder="每行输入一个参数&#10;tom&#10;jerry&#10;alice"></textarea>
+        </label>
+        <label class="field-card">
+          <span class="field-label">格式化结果</span>
+          <textarea id="params-output" readonly placeholder="结果会显示在这里"></textarea>
+        </label>
+      </div>
+      <div class="panel-actions">
+        <button class="button button-primary" id="params-action">格式化</button>
+        <button class="button button-secondary" data-copy="params-output">复制结果</button>
+        <button class="button button-ghost" data-clear="params-input,params-output">清空</button>
+      </div>
+    </section>
+
+    <section class="tool-panel" id="json-panel" role="tabpanel" hidden>
+      <div class="panel-heading">
+        <div>
+          <h2>JSON 格式化</h2>
+          <p>校验 JSON 并自动缩进；格式错误时会给出提示。</p>
+        </div>
+      </div>
+      <label class="field-card field-card-wide">
+        <span class="field-label">JSON 内容</span>
+        <textarea id="json-input" class="large-editor" placeholder='{"name":"demo","items":[1,2,3]}'></textarea>
+      </label>
+      <div class="panel-actions">
+        <button class="button button-primary" id="json-action">格式化</button>
+        <button class="button button-secondary" data-copy="json-input">复制结果</button>
+        <button class="button button-ghost" data-clear="json-input">清空</button>
+      </div>
+    </section>
+
+    <section class="tool-panel" id="timestamp-panel" role="tabpanel" hidden>
+      <div class="panel-heading">
+        <div>
+          <h2>时间戳转换</h2>
+          <p>支持 10 位秒级时间戳、13 位毫秒级时间戳和常见日期格式。</p>
+        </div>
+      </div>
+      <div class="converter-grid">
+        <div class="converter-card">
+          <span class="field-label">时间戳 → 日期</span>
+          <input id="timestamp-input" type="text" inputmode="numeric" placeholder="例如：1725148800">
+          <button class="button button-primary" id="timestamp-to-date">转换为日期</button>
+          <output id="date-output" class="conversion-output">—</output>
+        </div>
+        <div class="converter-card">
+          <span class="field-label">日期 → 时间戳</span>
+          <input id="date-input" type="text" placeholder="例如：2024-09-01 12:00:00">
+          <button class="button button-primary" id="date-to-timestamp">转换为时间戳</button>
+          <output id="timestamp-output" class="conversion-output">—</output>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-panel" id="sql-panel" role="tabpanel" hidden>
+      <div class="panel-heading">
+        <div>
+          <h2>SQL 条件注入</h2>
+          <p>使用逗号分隔入参，将参数依次替换 SQL 中的 ? 占位符。</p>
+        </div>
+      </div>
+      <div class="stacked-fields">
+        <label class="field-card field-card-wide">
+          <span class="field-label">SQL 模板</span>
+          <textarea id="sql-input" placeholder="select * from user where id = ? and name = ?"></textarea>
+        </label>
+        <label class="field-card field-card-wide">
+          <span class="field-label">入参</span>
+          <textarea id="sql-params" placeholder="1,tom"></textarea>
+        </label>
+        <label class="field-card field-card-wide">
+          <span class="field-label">注入结果</span>
+          <textarea id="sql-output" readonly placeholder="结果会显示在这里"></textarea>
+        </label>
+      </div>
+      <div class="panel-actions">
+        <button class="button button-primary" id="sql-action">条件注入</button>
+        <button class="button button-secondary" data-copy="sql-output">复制结果</button>
+        <button class="button button-ghost" data-clear="sql-input,sql-params,sql-output">清空</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
