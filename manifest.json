@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "格式化工具箱",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "字符串、Params、JSON、时间戳和 SQL 调试工具。",
   "action": {
     "default_title": "格式化工具箱",

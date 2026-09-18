@@ -35,6 +35,10 @@ function clearFields(ids) {
   showToast('已清空');
 }
 
+function uniqueNonBlankLines(text) {
+  return [...new Set(text.split(/\r?\n/).filter((line) => line.trim() !== ''))];
+}
+
 function quoteSqlValue(value) {
   return `'${value.replaceAll("'", "''")}'`;
 }
@@ -89,13 +93,12 @@ document.querySelectorAll('[data-clear]').forEach((button) => {
 });
 
 $('#repeat-action').addEventListener('click', () => {
-  const lines = $('#repeat-input').value.split(/\r?\n/);
-  $('#repeat-output').value = [...new Set(lines)].join('\n');
+  $('#repeat-output').value = uniqueNonBlankLines($('#repeat-input').value).join('\n');
   showToast('去重完成');
 });
 
 $('#params-action').addEventListener('click', () => {
-  const values = $('#params-input').value.split(/\r?\n/).filter((value) => value.trim() !== '');
+  const values = uniqueNonBlankLines($('#params-input').value);
   const type = $('#params-type').value;
   $('#params-output').value = values
     .map((value) => type === 'string' ? quoteSqlValue(value) : value.trim())
